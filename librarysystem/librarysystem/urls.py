@@ -18,8 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from libraryapp.views import AuthorApi, BookApi
 from rest_framework import routers
-
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
     path('api/', include('libraryapp.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
+    path('auth/', include('djoser.urls.authtoken')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('admin/', admin.site.urls),
 ]
