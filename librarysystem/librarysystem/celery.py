@@ -1,6 +1,6 @@
 import os
-
-from celery import Celery
+from django.core.mail import send_mail
+from celery import Celery, Task
 
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'librarysystem.settings')
@@ -20,3 +20,4 @@ app.autodiscover_tasks()
 @app.task(bind=True, ignore_result=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
+

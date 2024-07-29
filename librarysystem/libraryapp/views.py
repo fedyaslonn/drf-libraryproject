@@ -101,7 +101,7 @@ class LoanApi(APIView):
         serializer = LoanSerializer(data=request.data)
         if serializer.is_valid():
             loan = serializer.save()
-            send_email_task.delay("wisp47344@gmail.com", loan.book.title)
+            send_email_task.delay(request.user, loan.book.title)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
